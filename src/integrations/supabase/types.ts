@@ -14,16 +14,272 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      access_logs: {
+        Row: {
+          building_id: string | null
+          building_name: string
+          created_at: string
+          direction: string
+          granted: boolean
+          id: string
+          reason: string | null
+          student_name: string
+          student_number: string
+          user_id: string
+        }
+        Insert: {
+          building_id?: string | null
+          building_name: string
+          created_at?: string
+          direction: string
+          granted: boolean
+          id?: string
+          reason?: string | null
+          student_name: string
+          student_number: string
+          user_id: string
+        }
+        Update: {
+          building_id?: string | null
+          building_name?: string
+          created_at?: string
+          direction?: string
+          granted?: boolean
+          id?: string
+          reason?: string | null
+          student_name?: string
+          student_number?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "access_logs_building_id_fkey"
+            columns: ["building_id"]
+            isOneToOne: false
+            referencedRelation: "buildings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      building_access: {
+        Row: {
+          building_id: string
+          user_id: string
+        }
+        Insert: {
+          building_id: string
+          user_id: string
+        }
+        Update: {
+          building_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "building_access_building_id_fkey"
+            columns: ["building_id"]
+            isOneToOne: false
+            referencedRelation: "buildings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      buildings: {
+        Row: {
+          capacity: number
+          created_at: string
+          id: string
+          name: string
+          occupancy: number
+          restricted: boolean
+          tag_code: string
+        }
+        Insert: {
+          capacity?: number
+          created_at?: string
+          id?: string
+          name: string
+          occupancy?: number
+          restricted?: boolean
+          tag_code: string
+        }
+        Update: {
+          capacity?: number
+          created_at?: string
+          id?: string
+          name?: string
+          occupancy?: number
+          restricted?: boolean
+          tag_code?: string
+        }
+        Relationships: []
+      }
+      campus_settings: {
+        Row: {
+          close_time: string
+          id: number
+          near_capacity_pct: number
+          open_time: string
+          timezone: string
+        }
+        Insert: {
+          close_time?: string
+          id?: number
+          near_capacity_pct?: number
+          open_time?: string
+          timezone?: string
+        }
+        Update: {
+          close_time?: string
+          id?: number
+          near_capacity_pct?: number
+          open_time?: string
+          timezone?: string
+        }
+        Relationships: []
+      }
+      classes: {
+        Row: {
+          code: string
+          created_at: string
+          days: number[]
+          end_time: string
+          id: string
+          room: string
+          start_time: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          days?: number[]
+          end_time: string
+          id?: string
+          room?: string
+          start_time: string
+          title: string
+          user_id?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          days?: number[]
+          end_time?: string
+          id?: string
+          room?: string
+          start_time?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          id: string
+          location: string
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          location?: string
+          starts_at: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          location?: string
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          read: boolean
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          read?: boolean
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          read?: boolean
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          student_number: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string
+          id: string
+          student_number: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          student_number?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      tap_building: { Args: { _tag: string }; Returns: Json }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "supervisor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +406,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "supervisor"],
+    },
   },
 } as const
