@@ -37,7 +37,7 @@ const pill = {
   full: "bg-destructive/15 text-destructive",
 } as const;
 
-export function CapacityBar({ occ, cap, nearPct }: { occ: number; cap: number; nearPct?: number }) {
+export function CapacityBar({ occ, cap, nearPct }: { occ: number; cap: number; nearPct?: number | undefined }) {
   const c = capacityLevel(occ, cap, nearPct);
   return (
     <div>
