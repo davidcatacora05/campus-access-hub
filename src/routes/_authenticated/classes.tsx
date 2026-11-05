@@ -8,8 +8,8 @@ export const Route = createFileRoute("/_authenticated/classes")({
   component: ClassesPage,
 });
 
-export const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-export const fmtTime = (t: string) => {
+const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const fmtTime = (t: string) => {
   const [h, m] = t.split(":").map(Number);
   return new Date(2000, 0, 1, h, m).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 };
