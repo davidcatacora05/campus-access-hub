@@ -46,5 +46,5 @@ export function capacityLevel(occ: number, cap: number, nearPct = 80) {
 export function parseTag(raw: string): string {
   const t = raw.trim();
   const m = t.match(/\/tap\/([^/?#]+)/);
-  return decodeURIComponent(m ? m[1] : t).toUpperCase();
+  return decodeURIComponent(m?.[1] ?? t).toUpperCase();
 }

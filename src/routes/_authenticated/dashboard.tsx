@@ -57,7 +57,7 @@ function Dashboard() {
   async function saveHours() {
     const { error } = await supabase
       .from("campus_settings")
-      .update({ open_time: open ?? s?.open_time, close_time: close ?? s?.close_time })
+      .update({ open_time: open ?? s?.open_time ?? "06:00", close_time: close ?? s?.close_time ?? "23:00" })
       .eq("id", 1);
     if (error) toast.error(error.message);
     else { toast.success("Campus hours saved"); qc.invalidateQueries({ queryKey: ["buildings"] }); }
