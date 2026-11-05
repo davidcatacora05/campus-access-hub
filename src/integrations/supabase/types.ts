@@ -246,6 +246,68 @@ export type Database = {
         }
         Relationships: []
       }
+      tutor_bookings: {
+        Row: {
+          created_at: string
+          id: string
+          note: string
+          starts_at: string
+          tutor_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string
+          starts_at: string
+          tutor_id: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string
+          starts_at?: string
+          tutor_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_bookings_tutor_id_fkey"
+            columns: ["tutor_id"]
+            isOneToOne: false
+            referencedRelation: "tutors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tutors: {
+        Row: {
+          bio: string
+          created_at: string
+          id: string
+          location: string
+          name: string
+          subject: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          id?: string
+          location?: string
+          name: string
+          subject: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          id?: string
+          location?: string
+          name?: string
+          subject?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -277,6 +339,10 @@ export type Database = {
         Returns: boolean
       }
       tap_building: { Args: { _tag: string }; Returns: Json }
+      tutor_taken_slots: {
+        Args: { _from: string; _to: string; _tutor: string }
+        Returns: string[]
+      }
     }
     Enums: {
       app_role: "student" | "supervisor"
