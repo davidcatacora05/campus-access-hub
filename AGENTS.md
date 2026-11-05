@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Building tap-in decisions (hours, access, capacity, occupancy counts) live in the `tap_building` database function; the client only calls it, so rules can't be bypassed from the browser.
+- NFC tags store a `/tap/<CODE>` URL so iPhones (no Web NFC) can tap too; Android Chrome also scans in-app via NDEFReader.
